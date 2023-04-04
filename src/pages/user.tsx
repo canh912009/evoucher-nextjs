@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import AAA from "assets/vercel_copy.svg"
 
-export default function user() {
+export default function User() {
     return (
-        <div>Hello user</div>
+        <Fragment>
+            <div>Hello user</div>
+            {/* <img src='/images/vercel_copy.svg'></img> */}
+            <img src={AAA} />
+        </Fragment>
     )
 }

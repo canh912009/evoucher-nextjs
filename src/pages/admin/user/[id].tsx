@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import Link from 'next/link';
 
 export default function UserId() {
     const router = useRouter();
@@ -19,6 +20,11 @@ export default function UserId() {
             </Head>
             <div>Hello user ID  : {router.query.id}</div>
             <button onClick={handleOnClick}>Go to Homepage</button>
+
+            <Link href="/" className='active'>
+                Link home
+                <button onClick={handleOnClick}>Link home</button>
+            </Link>
         </>
     )
 }
