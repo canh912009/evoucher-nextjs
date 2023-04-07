@@ -2,7 +2,7 @@ import { useRef } from "react";
 
 type ContructorCallback = () => void;
 
-export default function useContructor(callback: ContructorCallback): void {
+function useContructor(callback: ContructorCallback): void {
     const isRun = useRef(false);
 
     if (isRun.current === false) {
@@ -10,3 +10,5 @@ export default function useContructor(callback: ContructorCallback): void {
         isRun.current = true;
     }
 }
+
+export default useContructor
