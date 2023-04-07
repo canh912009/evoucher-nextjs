@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import Button from '@/components/Button';
 
 let isRun: boolean = false;
@@ -22,6 +22,8 @@ const LifeCycle = () => {
         firstName: 'Canh',
         lastName: 'Nguyen'
     });
+
+    const inputFileEl = useRef(null);
 
     // const [state, setState] = useState({ //*state all
     //     counter: 0,
@@ -60,13 +62,19 @@ const LifeCycle = () => {
         return user.firstName + user.lastName;
     }, [user]);
 
+    // this test same useMemo, ko nên lạm dụng , Dùng khi có dữ liệu lớn, render đồ thị/editor soạn thảo văn bản...
+    const handleClickCounter = useCallback(
+        () => {
+            setCounter(counter + 1);
+        }, [visiable]
+    );
 
     return (
         <div className='container'>
             <h1>lifecycle , hi {fullName}</h1>
 
-            <button onClick={() => { setCounter(counter + 1) }}>Counter Add</button>
-            <button onClick={() => { setCounter((prevCounter) => { return prevCounter + 1 }) }}>Counter Add</button>
+            <button onClick={handleClickCounter}>Counter Add</button>
+            {/* <button onClick={() => { setCounter((prevCounter) => { return prevCounter + 1 }) }}>Counter Add</button> */}
             <p>{counter}</p>
 
             {/* <button onClick={() => { //*state all
@@ -82,6 +90,19 @@ const LifeCycle = () => {
                 setVisiable(false)
             }}> Hide Btton </button>
             {visiable && <Button />}
+
+            <hr />
+
+            {/* useRef */}
+            <input ref={inputFileEl} type="file" />
+            <button
+                onClick={() => {
+                    console.log(inputFileEl.current);
+                    // inputFileEl.current.click();
+                    const input = document.querySelector('input[type="file"]') as HTMLInputElement;
+                    input.click();
+                }}
+                className='upload'>Upload Image</button>
 
         </div>
     )
