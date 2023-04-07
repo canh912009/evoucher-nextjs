@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import Button from '@/components/Button';
+import useContructor from '@/custom-hooks/useContructor';
+
+
+// tạo custom Hooks -> useContructor
+// -> nhận vào 1 function callback. 
+// chỉ đc gọi 1 lần duy nhất
 
 let isRun: boolean = false;
 
@@ -11,9 +17,14 @@ const LifeCycle = () => {
     } // -> Tip trick useMemo */
 
     // Tip trick useMemo --> same Contructor
+    // chạy 1 lần cả server và client
     useMemo(() => {
         console.log("contructor - useMemo");
     }, []);
+
+    useContructor(() => {
+        console.log("contructor - use custom hooks");
+    })
 
     // Destructring để phân rã Array đó thành 2 phần tử :  [giá trị của state, hàm set lại state]
     const [counter, setCounter] = useState(0);
@@ -23,6 +34,7 @@ const LifeCycle = () => {
         lastName: 'Nguyen'
     });
 
+    // **useRef  -** tạo 1 object và nó tồn tại trong suốt chu kì  sống  của component
     const inputFileEl = useRef(null);
 
     // const [state, setState] = useState({ //*state all
@@ -32,6 +44,7 @@ const LifeCycle = () => {
     // --> khi dùng hooks ko nên gộp vào ntn vì chỗ setState bắt buộc phải set hết
 
     // same componentDidMount + componentDidUpdate: , dc goi sau khi render xong
+    // useEffect chạy client thôi
     useEffect(() => {
         // Cập nhập document title sử dụng browser API
         console.log("useEffect run - bất kế state nào có thay đổi");
