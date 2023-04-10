@@ -1,4 +1,5 @@
-// import '@/styles/globals.css'
+import '@/styles/globals2.scss'
+// import '@/styles/sb-admin-2.module.css'
 import '@/styles/globals2.scss'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
