@@ -1,7 +1,7 @@
 
 import ModalSolution from '@/components/ModalSolution'
 import React from 'react'
-// import styles from '@/styles/modal.module.scss'
+import styles from '@/styles/modal.module.scss'
 
 export default function Solution() {
     return (
@@ -14,7 +14,7 @@ export default function Solution() {
             </ModalSolution>
 
             <button className='upload22'>Upload Image</button>
-            {/* <button className={styles.upload22}>Upload Image</button> */}
+            <button className={styles.upload22}>Upload Image22</button>
         </div>
     )
 }
