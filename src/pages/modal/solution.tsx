@@ -1,20 +1,22 @@
-
-import ModalSolution from '@/components/ModalSolution'
-import React from 'react'
-import styles from '@/styles/modal.module.scss'
+import ModalTest from '@/components/ModalSolution'
+import React, { useState } from 'react'
+import styles from '@/styles/ModalSolution.module.scss'
 
 export default function Solution() {
+    const [openModal, setOpenModal] = useState(false)
+
     return (
         <div className='container'>
-            <ModalSolution>
+            <ModalTest isVisible={true}>
                 <h2>Demo modal</h2>
                 <form action="">
                     <input type="text" />
                 </form>
-            </ModalSolution>
+            </ModalTest>
 
-            <button className='upload22'>Upload Image</button>
-            <button className={styles.upload22}>Upload Image22</button>
+            <button onClick={() => { setOpenModal(true) }}>
+                OpenModal
+            </button>
         </div>
     )
 }
