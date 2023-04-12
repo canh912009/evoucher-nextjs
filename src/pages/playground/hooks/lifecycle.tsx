@@ -34,7 +34,8 @@ const LifeCycle = () => {
         lastName: 'Nguyen'
     });
 
-    // **useRef  -** tạo 1 object và nó tồn tại trong suốt chu kì  sống  của component
+    //useRef  - tạo 1 object và nó tồn tại trong suốt chu kì sống của component,
+    //  chỉ nên dùng cho những thứ cố định ko thay đổi
     const inputFileEl = useRef(null);
 
     // const [state, setState] = useState({ //*state all
