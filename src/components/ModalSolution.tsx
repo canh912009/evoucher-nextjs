@@ -27,13 +27,18 @@ const ModalSolution: React.FC<ModalProps> = (props) => {
   }, [props.isVisible]);
 
   useEffect(() => {
-    document.addEventListener("keyup", (event) => {
-      if (event.key === "Escape") {
+    function handlerEscKey(ev: KeyboardEvent) {
+      if (ev.key === "Escape") {
         console.log("event = ", { event });
-        props.onCancel
-      }
-
-    });
+        if (props.onCancel)
+          props.onCancel();
+      };
+    }
+    document.addEventListener("keyup", handlerEscKey);
+    return () => {
+      // same when componentWillUnmount <-> Component will remove from DOM
+      document.removeEventListener("keyup", handlerEscKey);
+    }
   }, []);
 
   const _renderFooter = (): JSX.Element => {
@@ -48,6 +53,7 @@ const ModalSolution: React.FC<ModalProps> = (props) => {
     );
   }
 
+  if (props.isVisible === false) return null;
   return (
     <div className={classDefault}>
       <div className={styles.tcl_mask} onClick={props.onCancel} ></div>

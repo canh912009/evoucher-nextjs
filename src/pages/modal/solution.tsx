@@ -7,23 +7,25 @@ export default function Solution() {
 
     return (
         <div className='container2'>
-            <ModalTest
-                isVisible={openModal}
-                // renderFooter={() => {
-                //     return <p>Custom footer</p>
-                // }}
-                onCancel={() => {
-                    setOpenModal(false)
-                }}
-                onOK={() => {
-                    console.log("submit form");
-                }}
-            >
-                <h2>Demo modal</h2>
-                <form action="">
-                    <input type="text" />
-                </form>
-            </ModalTest>
+            {openModal &&
+                <ModalTest
+                    isVisible={openModal}
+                    // renderFooter={() => {
+                    //     return <p>Custom footer</p>
+                    // }}
+                    onCancel={() => {
+                        setOpenModal(false)
+                    }}
+                    onOK={() => {
+                        console.log("submit form");
+                    }}
+                >
+                    <h2>Demo modal</h2>
+                    <form action="">
+                        <input type="text" />
+                    </form>
+                </ModalTest>
+            }
 
             <button onClick={() => { setOpenModal(true) }}>
                 OpenModal
