@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React/* , { useEffect, useState } */ from 'react'
+import { NextPage, NextPageContext, } from 'next';
 
 const BASE_URL: string = "http://apiluc.zendvn.com/api"
 
-const GetIntialProps = () => {
-    const [posts, setPosts] = useState<any[]>([]);
+type PostType = {
+    PID: string;
+    post_content: string
+}
 
-    useEffect(() => {
-        // CSR , toàn bộ sữ liệu có đc sau khi render --> lần đầu tiên ko lấy đc dữ liệu phía server
-        fetch(BASE_URL + '/post/getListPagination.php?pagesize=5&currPage=1')
-            .then(async (response) => {
-                const data = await response.json();
-                setPosts(data.posts)
-                console.log(data.posts)
-            })
-    }, []);
+type PropsType = {
+    posts: PostType[]
+}
+
+const GetIntialProps: NextPage<PropsType> = (props) => {
 
     return (
         <div className='cointainer'>
             <h1>Demo list GetIntialProps</h1>
             <ul>
                 {
-                    posts.map((post) => {
+                    props.posts.map((post) => {
                         return <li key={post.PID}>{post.PID}  {post.post_content}</li>
                     })
                 }
@@ -29,4 +28,13 @@ const GetIntialProps = () => {
     )
 }
 
-export default GetIntialProps
+GetIntialProps.getInitialProps = async (context: NextPageContext) => {
+    const response = await fetch(BASE_URL + '/post/getListPagination.php?pagesize=5&currPage=1');
+    const data = await response.json();
+
+    return {
+        posts: data.posts
+    }
+}
+
+export default GetIntialProps;
