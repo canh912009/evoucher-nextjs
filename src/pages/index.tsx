@@ -1,5 +1,5 @@
-import { HomeSidebar } from "./components/HomeSidebar";
-import { PostListItem } from "./components/PostListItem";
+import { HomeSidebar } from "../components/HomeSidebar";
+import { PostListItem } from "../components/PostListItem";
 
 export default function Home() {
     return (

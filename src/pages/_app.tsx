@@ -4,7 +4,7 @@ import '@/styles/style.css'  //load bootstrap trước r css sau
 import type { AppContext, AppProps } from 'next/app'
 import Head from 'next/head'
 
-import { Header } from './components/Header'
+import { Header } from '../components/Header'
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return <div id='root'>
