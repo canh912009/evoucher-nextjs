@@ -10,8 +10,9 @@ import { useMemo } from 'react'
 
 export default function MyApp({ Component, pageProps, router }: AppProps) {
   const hideFooter: boolean = useMemo(() => {
-    const exclude = ['/', '/login'];
+    const exclude = ['/', '/posts/[post_id]'];
     const currentRouter = router.pathname;
+    // console.log("router.pathname", router.pathname);
 
     return exclude.indexOf(currentRouter) !== -1;
 
@@ -37,8 +38,8 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
       <link rel="icon" href="/favicon.ico" />
 
       <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" />
-      <link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.css" />
-      <link rel="stylesheet" href="fonts/emotion/style.css" />
+      <link rel="stylesheet" href="/fonts/font-awesome/css/font-awesome.css" />
+      <link rel="stylesheet" href="/fonts/emotion/style.css" />
       {/* <link href="css/style.css" rel="stylesheet" /> bỏ comment này thì nó sẽ load trước bootstrap gây vỡ giao diện --> import ở dòng 2 */}
 
       {/* JAVA SCRIPT */}
