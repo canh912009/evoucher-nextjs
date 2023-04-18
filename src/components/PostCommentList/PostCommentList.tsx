@@ -14,7 +14,7 @@ const PostCommentList = () => {
             </div>
             {/*comment*/}
             <div className="ass1-comments__section">
-                <a href="#" className="ass1-comments__avatar ass1-avatar"><img src="images/avatar-02.png" alt /></a>
+                <a href="#" className="ass1-comments__avatar ass1-avatar"><img src="/images/avatar-02.png" /></a>
                 <div className="ass1-comments__content">
                     <a href="#" className="ass1-comments__name">Tây Tạng</a>
                     <span className="ass1-comments__passed">12 giờ trước</span>
@@ -27,7 +27,7 @@ const PostCommentList = () => {
             </div>
             {/*comment*/}
             <div className="ass1-comments__section">
-                <a href="#" className="ass1-comments__avatar ass1-avatar"><img src="images/avatar-11.png" alt /></a>
+                <a href="#" className="ass1-comments__avatar ass1-avatar"><img src="/images/avatar-11.png" /></a>
                 <div className="ass1-comments__content">
                     <a href="#" className="ass1-comments__name">Monster </a>
                     <span className="ass1-comments__passed">3 giờ trước</span>
@@ -40,7 +40,7 @@ const PostCommentList = () => {
                     </div>
                     {/*comment*/}
                     <div className="ass1-comments__section">
-                        <a href="#" className="ass1-comments__avatar ass1-avatar"><img src="images/avatar-10.png" alt /></a>
+                        <a href="#" className="ass1-comments__avatar ass1-avatar"><img src="/images/avatar-10.png" /></a>
                         <div className="ass1-comments__content">
                             <a href="#" className="ass1-comments__name">Bầu trời</a>
                             <span className="ass1-comments__passed">1 hour ago</span>
@@ -53,7 +53,7 @@ const PostCommentList = () => {
                     </div>
                     {/*comment*/}
                     <div className="ass1-comments__section">
-                        <a href="#" className="ass1-comments__avatar ass1-avatar"><img src="images/avatar-10.png" alt /></a>
+                        <a href="#" className="ass1-comments__avatar ass1-avatar"><img src="/images/avatar-10.png" /></a>
                         <div className="ass1-comments__content">
                             <a href="#" className="ass1-comments__name">Nguyễn A</a>
                             <span className="ass1-comments__passed">39 mins ago</span>
@@ -68,7 +68,7 @@ const PostCommentList = () => {
             </div>
             {/*comment*/}
             <div className="ass1-comments__section">
-                <a href="#" className="ass1-comments__avatar ass1-avatar"><img src="images/avatar-14.png" alt /></a>
+                <a href="#" className="ass1-comments__avatar ass1-avatar"><img src="/images/avatar-14.png" /></a>
                 <div className="ass1-comments__content">
                     <a href="#" className="ass1-comments__name">Minh Minh</a>
                     <span className="ass1-comments__passed">2 giờ trước</span>
