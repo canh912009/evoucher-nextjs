@@ -4,9 +4,27 @@ import '@/styles/style.css'  //load bootstrap trước r css sau
 import type { AppContext, AppProps } from 'next/app'
 import Head from 'next/head'
 
-import { Header } from '../components/Header'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
+import { useMemo } from 'react'
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps, router }: AppProps) {
+  const hideFooter: boolean = useMemo(() => {
+    const exclude = ['/', '/login'];
+    const currentRouter = router.pathname;
+
+    return exclude.indexOf(currentRouter) !== -1;
+
+  }, [router]);
+
+  const hideHeader: boolean = useMemo(() => {
+    const exclude = ['/register', '/login'];
+    const currentRouter = router.pathname;
+
+    return exclude.indexOf(currentRouter) !== -1;
+
+  }, [router]);
+
   return <div id='root'>
     <Head>
       <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -30,10 +48,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       {/*[if lt IE 9]>
 	      <![endif]*/}
     </Head>
-    <Header />
+
+    {!hideHeader && <Header />}
 
     <main>
       <Component {...pageProps} />
     </main>
+
+    {!hideFooter && <Footer />}
   </div>
 }
