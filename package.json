@@ -13,11 +13,16 @@
     "@types/react": "18.0.31",
     "@types/react-dom": "18.0.11",
     "bootstrap": "4.0.0",
+    "es6-promise": "^4.2.8",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
+    "isomorphic-fetch": "^3.0.0",
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.0.3"
+  },
+  "devDependencies": {
+    "@types/isomorphic-fetch": "^0.0.36"
   }
 }
