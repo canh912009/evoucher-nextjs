@@ -1,5 +1,6 @@
 import { type } from 'os'
-import React, { useState } from 'react'
+import React, { FormEvent, useState } from 'react'
+import api from '@/services/api'
 
 type FormLogin = {
     email: string,
@@ -23,11 +24,31 @@ const Login = () => {
     //     }
     // }
 
-    const handleOnChange = (key: string) => (evt: any) => {  //function return a function , t.tự hàm trên
-        setFormData({
-            ...formData, // lấy data từ cả form cũ và chỉ sửa data Email dưới
-            [key]: evt.target.value
-        });
+    // const handleOnChange = (key: string) => (evt: any) => {  //function return a function , t.tự hàm trên
+    //     setFormData({
+    //         ...formData, // lấy data từ cả form cũ và chỉ sửa data Email dưới
+    //         [key]: evt.target.value
+    //     });
+    // }
+
+    function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+        event.preventDefault;
+        console.log("formData", formData);
+        api.callJson("/member/login.php", formData, "POST")
+            .then(
+                data => {
+                    console.log("data", data);
+                }
+            )
+    }
+
+    function handleOnChange(key: string): React.ChangeEventHandler<HTMLInputElement> | undefined {
+        return (evt: any) => {
+            setFormData({
+                ...formData, // lấy data từ cả form cũ và chỉ sửa data Email dưới
+                [key]: evt.target.value
+            });
+        }
     }
 
     return (
@@ -38,7 +59,7 @@ const Login = () => {
             <div className="ass1-login__content">
                 <p>Đăng nhập</p>
                 <div className="ass1-login__form">
-                    <form action="#">
+                    <form action="#" onSubmit={handleSubmit}>
                         <input
                             value={formData.email}
                             onChange={handleOnChange('email')}
