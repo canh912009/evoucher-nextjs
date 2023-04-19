@@ -38,6 +38,9 @@ const Login = () => {
             .then(
                 data => {
                     console.log("data", data);
+                    // show loading
+                    // get Token --> setup to cookie
+                    // login ok --> router.push('/') : home page
                 }
             )
     }

@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch'
 
 // Trong TypeScript, Record là một kiểu dữ liệu giúp định nghĩa một đối tượng với các cặp key-value
 const api = {
-    callJson: async (path: string, data: Record<string, any>, method: string = "GET") => {
+    callJson: async (path: string, data?: Record<string, any>, method: string = "GET") => {
         const _url = `${BASE_URL}${path}`;
         const config: RequestInit = {
             method,
