@@ -2,6 +2,7 @@ import { type } from 'os'
 import React, { FormEvent, useState } from 'react'
 import api from '@/services/api'
 import fetch from 'isomorphic-fetch'
+import Cookies from 'js-cookie'
 
 type FormLogin = {
     email: string,
@@ -44,6 +45,7 @@ const Login = () => {
         //             // login ok --> router.push('/') : home page
         //         }
         //     )
+
         fetch('/api/login', {
             body: JSON.stringify(formData),
             method: 'POST',
@@ -54,6 +56,9 @@ const Login = () => {
             .then(res => res.json())
             .then(data => {
                 console.log("data ====", data);
+                Cookies.set("token", data.token, {
+                    expires: 30
+                })
             })
 
     }

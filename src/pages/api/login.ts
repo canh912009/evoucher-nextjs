@@ -20,7 +20,7 @@ export default async function handler(
         })
     }
 
-    console.log("data API ====", req.body);
+    console.log("data Cookies ====", req.headers.cookie);
 
     try {
         const data = req.body
