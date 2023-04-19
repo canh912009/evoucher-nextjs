@@ -1,6 +1,7 @@
 import { type } from 'os'
 import React, { FormEvent, useState } from 'react'
 import api from '@/services/api'
+import fetch from 'isomorphic-fetch'
 
 type FormLogin = {
     email: string,
@@ -33,16 +34,28 @@ const Login = () => {
 
     function handleSubmit(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault;
-        console.log("formData", formData);
-        api.callJson("/member/login.php", formData, "POST")
-            .then(
-                data => {
-                    console.log("data", data);
-                    // show loading
-                    // get Token --> setup to cookie
-                    // login ok --> router.push('/') : home page
-                }
-            )
+        // console.log("formData", formData);
+        // api.callJson("/member/login.php", formData, "POST")
+        //     .then(
+        //         data => {
+        //             console.log("data", data);
+        //             // show loading
+        //             // get Token --> setup to cookie
+        //             // login ok --> router.push('/') : home page
+        //         }
+        //     )
+        fetch('/api/login', {
+            body: JSON.stringify(formData),
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("data ====", data);
+            })
+
     }
 
     function handleOnChange(key: string): React.ChangeEventHandler<HTMLInputElement> | undefined {
