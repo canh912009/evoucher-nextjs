@@ -1,4 +1,3 @@
-import { Cookies } from 'js-cookie';
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import api from '@/services/api'
@@ -32,11 +31,12 @@ export default async function handler(
         const currentTime = new Date();
         const nextYear = new Date(currentTime.getFullYear(), currentTime.getMonth() + 6);
 
-        res.setHeader('Set-Cookie', `token=${resBackend.token}; expires=${nextYear.toUTCString()}`)
+        res.setHeader('Set-Cookie', `token=${resBackend.token}; expires=${nextYear.toUTCString()}; Path=/`)
         res.statusCode = 200
         res.json(resBackend)
 
     } catch (error: any) {
+        console.log("loginTS  catch (error: any)");
         res.statusCode = 200
         res.json({
             status: 500,

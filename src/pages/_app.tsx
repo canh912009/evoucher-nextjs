@@ -14,22 +14,25 @@ import { useMemo } from 'react'
 es6Promise.polyfill()
 
 export default function MyApp({ Component, pageProps, router }: AppProps) {
+  const pathName = router.pathname;
+
   const hideFooter: boolean = useMemo(() => {
     const exclude = ['/', '/posts/[post_id]'];
-    const currentRouter = router.pathname;
     // console.log("router.pathname", router.pathname);
 
-    return exclude.indexOf(currentRouter) !== -1;
+    return exclude.indexOf(pathName) !== -1;
 
   }, [router]);
 
   const hideHeader: boolean = useMemo(() => {
+    console.log("router change", router);
+
     const exclude = ['/register', '/login'];
     const currentRouter = router.pathname;
 
     return exclude.indexOf(currentRouter) !== -1;
 
-  }, [router]);
+  }, [pathName]);
 
   return (
     <div id='root'>

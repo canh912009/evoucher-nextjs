@@ -3,6 +3,7 @@ import React, { FormEvent, useState } from 'react'
 import api from '@/services/api'
 import fetch from 'isomorphic-fetch'
 import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 
 type FormLogin = {
     email: string,
@@ -16,6 +17,7 @@ const initFormLogin: FormLogin = {
 
 const Login = () => {
     const [formData, setFormData] = useState(initFormLogin);
+    const router = useRouter()
 
     // function handleOnChange(key: string) {
     //     return (evt: any) => {
@@ -33,7 +35,7 @@ const Login = () => {
     //     });
     // }
 
-    function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+    function handleSubmit(event: any): void {
         event.preventDefault;
         // console.log("formData", formData);
         // api.callJson("/member/login.php", formData, "POST")
@@ -56,9 +58,12 @@ const Login = () => {
             .then(res => res.json())
             .then(data => {
                 console.log("data ====", data);
+                // set set Cookie client side
                 // Cookies.set("token", data.token, {
                 //     expires: 30
-                // })
+                // }) 
+
+                router.push('/')
             })
 
     }
