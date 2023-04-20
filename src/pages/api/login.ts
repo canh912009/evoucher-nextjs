@@ -29,8 +29,6 @@ export default async function handler(
         console.log("2. Response from Zend: ", resBackendZend);
 
         if (resBackendZend.status === 200) {
-            // khi trình duyệt nhận đc code 302 kèm header Location --> redirect to value of Location
-            res.statusCode = 302
             res.setHeader('Location', `/`)
             res.setHeader('Set-Cookie', `token=${resBackendZend.token}; expires=${nextYear.toUTCString()}; Path=/`)
         } else {
