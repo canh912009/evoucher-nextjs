@@ -56,9 +56,9 @@ const Login = () => {
             .then(res => res.json())
             .then(data => {
                 console.log("data ====", data);
-                Cookies.set("token", data.token, {
-                    expires: 30
-                })
+                // Cookies.set("token", data.token, {
+                //     expires: 30
+                // })
             })
 
     }
