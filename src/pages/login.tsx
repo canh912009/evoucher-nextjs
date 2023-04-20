@@ -1,5 +1,5 @@
 import { type } from 'os'
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import api from '@/services/api'
 import fetch from 'isomorphic-fetch'
 import Cookies from 'js-cookie'
@@ -18,6 +18,16 @@ const initFormLogin: FormLogin = {
 const Login = () => {
     const [formData, setFormData] = useState(initFormLogin);
     const router = useRouter()
+    const errorString = router.query.error;
+
+    useEffect(() => {
+        console.log("errorString ", errorString);
+
+        if (errorString) {
+            alert("Login failed") //co the thay lib hỗ trợ notification khac đc
+            window.history.pushState({}, document.title, "/login")
+        }
+    }, [errorString])
 
     // function handleOnChange(key: string) {
     //     return (evt: any) => {
@@ -77,6 +87,19 @@ const Login = () => {
         }
     }
 
+    function handleSubmitForm(event: any) {
+        event.preventDefault()
+        console.log("run handleSubmitForm");
+        const target = event.target
+
+        //B1. Valadation form data : email , pass nhập đúng định dạng...
+
+
+        //B2. gọi hàm submit của form
+        target.submit()
+
+    }
+
     return (
         <div className="ass1-login">
             <div className="ass1-login__logo">
@@ -86,7 +109,7 @@ const Login = () => {
                 <p>Đăng nhập</p>
                 <div className="ass1-login__form">
                     {/* <form action="#" onSubmit={handleSubmit}> */}
-                    <form action="/api/login" method='POST'>
+                    <form action="/api/login" method='POST' onSubmit={handleSubmitForm}>
                         <input
                             // value={formData.email}
                             // onChange={handleOnChange('email')}
