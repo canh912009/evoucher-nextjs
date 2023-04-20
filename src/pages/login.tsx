@@ -85,14 +85,19 @@ const Login = () => {
             <div className="ass1-login__content">
                 <p>Đăng nhập</p>
                 <div className="ass1-login__form">
-                    <form action="#" onSubmit={handleSubmit}>
+                    {/* <form action="#" onSubmit={handleSubmit}> */}
+                    <form action="/api/login" method='POST'>
                         <input
-                            value={formData.email}
-                            onChange={handleOnChange('email')}
+                            // value={formData.email}
+                            // onChange={handleOnChange('email')}
+
+                            name='email'
                             type="text" className="form-control" placeholder="Email" required />
                         <input
-                            value={formData.password}
-                            onChange={handleOnChange('password')}
+                            // value={formData.password}
+                            // onChange={handleOnChange('password')}
+
+                            name='password'
                             type="password" className="form-control" placeholder="Mật khẩu" required />
                         <div className="ass1-login__send">
                             <a href="dang-ky.html">Đăng ký một tài khoản</a>

@@ -20,20 +20,26 @@ export default async function handler(
         })
     }
 
-    console.log("data Cookies ====", req.headers.cookie);
-
+    console.log("1. API/Login run , data =", req.body);
     try {
-        const data = req.body
-        const resBackend = await api.callJson("/member/login.php", req.body, method)
-
-        console.log("resBackend", resBackend);
-
+        const resBackendZend = await api.callJson("/member/login.php", req.body, method)
         const currentTime = new Date();
         const nextYear = new Date(currentTime.getFullYear(), currentTime.getMonth() + 6);
 
-        res.setHeader('Set-Cookie', `token=${resBackend.token}; expires=${nextYear.toUTCString()}; Path=/`)
-        res.statusCode = 200
-        res.json(resBackend)
+        console.log("2. Response from Zend: ", resBackendZend);
+
+        if (resBackendZend.status === 200) {
+            // khi trình duyệt nhận đc code 302 kèm header Location --> redirect to value of Location
+            res.statusCode = 302
+            res.setHeader('Location', `/`)
+            res.setHeader('Set-Cookie', `token=${resBackendZend.token}; expires=${nextYear.toUTCString()}; Path=/`)
+        } else {
+            res.statusCode = 302
+            res.setHeader('Location', '/login?error=LoginFailed')
+        }
+
+        // này để kết thúc 1 request
+        res.json(resBackendZend)
 
     } catch (error: any) {
         console.log("loginTS  catch (error: any)");

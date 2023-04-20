@@ -25,10 +25,10 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
   }, [router]);
 
   const hideHeader: boolean = useMemo(() => {
-    console.log("router change", router);
+    // console.log("router change", router);
 
     const exclude = ['/register', '/login'];
-    const currentRouter = router.pathname;
+    const currentRouter = pathName
 
     return exclude.indexOf(currentRouter) !== -1;
 
