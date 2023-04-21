@@ -73,7 +73,12 @@ const Login = () => {
                 //     expires: 30
                 // }) 
 
-                router.push('/')
+                if (data.status === 200) {
+                    router.push('/')
+                } else {
+                    router.push('/login')
+                    alert(data.error ? data.error : "Login failed")
+                }
             })
 
     }

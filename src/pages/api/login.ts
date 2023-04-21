@@ -29,11 +29,11 @@ export default async function handler(
         console.log("2. Response from Zend: ", resBackendZend);
         if (resBackendZend.status === 200) {
             console.log("3. Send Location by Header --> Redirect");
-            res.setHeader('Location', `/`)
+            // res.setHeader('Location', '/')
             res.setHeader('Set-Cookie', `token=${resBackendZend.token}; expires=${nextYear.toUTCString()}; Path=/`)
         } else {
-            res.statusCode = 302
-            res.setHeader('Location', '/login?error=LoginFailed')
+            // res.statusCode = 302
+            // res.setHeader('Location', '/login?error=LoginFailed')
         }
 
         // này để kết thúc 1 requestss
