@@ -18,16 +18,6 @@ const initFormLogin: FormLogin = {
 const Login = () => {
     const [formData, setFormData] = useState(initFormLogin);
     const router = useRouter()
-    const errorString = router.query.error;
-
-    useEffect(() => {
-        console.log("errorString ", errorString);
-
-        if (errorString) {
-            alert("Login failed") //co the thay lib hỗ trợ notification khac đc
-            window.history.pushState({}, document.title, "/login")
-        }
-    }, [errorString])
 
     // function handleOnChange(key: string) {
     //     return (evt: any) => {
@@ -76,7 +66,7 @@ const Login = () => {
                 if (data.status === 200) {
                     router.push('/')
                 } else {
-                    router.push('/login')
+                    // router.push('/login')
                     alert(data.error ? data.error : "Login failed")
                 }
             })
