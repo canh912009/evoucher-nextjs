@@ -2,7 +2,7 @@ import api from "./api";
 
 const userService = {
     getUserById: async (userId: string) => {
-        api.callJson(`/member/member.php?userid=${userId}`)
+        return api.callJson(`/member/member.php?userid=${userId}`)
     }
 }
 

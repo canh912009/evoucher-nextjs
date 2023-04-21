@@ -10,16 +10,21 @@ import App from 'next/app'
 
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { parseJwt } from '@/helpers'
+import userService from '@/services/userService'
 
 es6Promise.polyfill()
 
 export default function MyApp({ Component, pageProps, router }: AppProps) {
     const pathName = router.pathname;
 
+    useEffect(() => {
+        console.log("\x1b[36m--- userInfo ---", pageProps.userInfo);
+    }, [])
+
     const hideFooter: boolean = useMemo(() => {
-        const exclude = ['/', '/posts/[post_id]'];
+        const exclude = ['/', '/posts/[postId]'];
         // console.log("router.pathname", router.pathname);
 
         return exclude.indexOf(pathName) !== -1;
@@ -75,19 +80,23 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
 // appContext khác với các Pages context
 MyApp.getInitialProps = async (appContext: AppContext) => {
     const appProps = await App.getInitialProps(appContext);
+    let userRes = null
 
     const req = appContext.ctx.req
-    if (req) {
+    if (req && req.headers.cookie) {
         const token = cookie.parse(req.headers.cookie as string).token;
         const userToken = parseJwt(token);
 
-        console.log("4. App run in getInitialProps");
-        console.log("5. Got Header(token) : ", userToken);
+        if (userToken.id) {
+            userRes = await userService.getUserById(userToken.id)
+            console.log("\x1b[36m--- DATA ---", userRes);
+        }
     }
 
     return {
         pageProps: {
             ...appProps.pageProps,
+            userInfo: userRes && userRes.user
         }
     }
 }
