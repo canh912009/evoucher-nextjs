@@ -27,8 +27,8 @@ export default async function handler(
         const nextYear = new Date(currentTime.getFullYear(), currentTime.getMonth() + 6);
 
         console.log("2. Response from Zend: ", resBackendZend);
-
         if (resBackendZend.status === 200) {
+            console.log("3. Send Location by Header --> Redirect");
             res.setHeader('Location', `/`)
             res.setHeader('Set-Cookie', `token=${resBackendZend.token}; expires=${nextYear.toUTCString()}; Path=/`)
         } else {
@@ -36,7 +36,7 @@ export default async function handler(
             res.setHeader('Location', '/login?error=LoginFailed')
         }
 
-        // này để kết thúc 1 request
+        // này để kết thúc 1 requestss
         res.json(resBackendZend)
 
     } catch (error: any) {
