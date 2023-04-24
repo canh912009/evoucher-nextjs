@@ -1,8 +1,10 @@
 import { PostDetailForm } from '@/components/PostDetailForm'
 import { PostDetailSibar } from '@/components/PostDetailSibar'
+import { useAuthen } from '@/helpers/useAuthen'
 import React from 'react'
 
 const PostCreate = () => {
+    useAuthen();
     return (
         <div className="container">
             <div className="row">

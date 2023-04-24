@@ -97,9 +97,9 @@ const Header = () => {
                             </label>
                         </form>
                     </div>
-                    <a href="#" className="ass1-header__btn-upload ass1-btn">
+                    <Link href="/posts/create" className="ass1-header__btn-upload ass1-btn">
                         <i className="icon-Upvote" /> Upload
-                    </a>
+                    </Link>
                     {
                         userInfo
                             ? <div className={styles.wrapper_user}>
