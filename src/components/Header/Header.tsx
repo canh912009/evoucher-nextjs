@@ -1,5 +1,6 @@
 import React from 'react'
-import styles from '@/styles/Header.module.scss
+import style from '@/styles/Header.module.scss'
+import Link from 'next/link'
 
 const Header = () => {
     return (
@@ -96,9 +97,18 @@ const Header = () => {
                     <a href="#" className="ass1-header__btn-upload ass1-btn">
                         <i className="icon-Upvote" /> Upload
                     </a>
-                    <a href="dang-nhap.html" className="ass1-header__btn-upload ass1-btn">
+                    {/* <div className="wrapper-user">
+                        <a className="user-header">
+                            <span className="avatar">
+                                <img src={userInfo.profilepicture || "/images/avatar-02.png"} alt="avatar" />
+                            </span>
+                            <span className="email">{userInfo.email}</span>
+                        </a>
+                        <div onClick={handleLogout} className="logout">Logout</div>
+                    </div> */}
+                    <Link href="/login" className="ass1-header__btn-upload ass1-btn">
                         Login
-                    </a>
+                    </Link>
                 </div>
             </div>
         </header>

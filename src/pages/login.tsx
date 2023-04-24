@@ -15,9 +15,12 @@ const initFormLogin: FormLogin = {
     password: ''
 }
 
-const Login = () => {
+const Login = (props: any) => {
     const [formData, setFormData] = useState(initFormLogin);
     const router = useRouter()
+
+    console.log("\x1b[36m--- Props Login COmponent ---", props);
+
 
     // function handleOnChange(key: string) {
     //     return (evt: any) => {

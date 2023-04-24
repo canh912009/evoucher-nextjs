@@ -12,12 +12,14 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { useEffect, useMemo } from 'react'
 import { parseJwt } from '@/helpers'
+import { useGlobalState } from '@/state'
 import userService from '@/services/userService'
 
 es6Promise.polyfill()
 
 export default function MyApp({ Component, pageProps, router }: AppProps) {
     const pathName = router.pathname;
+    console.log("\x1b[36m--- MyApp ---", pageProps.userInfo);
 
     useEffect(() => {
         console.log("\x1b[36m--- userInfo ---", pageProps.userInfo);
@@ -81,17 +83,24 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
 MyApp.getInitialProps = async (appContext: AppContext) => {
     const appProps = await App.getInitialProps(appContext);
     let userRes = null
+    console.log("\x1b[36m--- Run both server + client side ---", appContext);
 
-    const req = appContext.ctx.req
-    if (req && req.headers.cookie) {
-        const token = cookie.parse(req.headers.cookie as string).token;
-        const userToken = parseJwt(token);
+    if (typeof window === "undefined") { //server side SSR, run only once
+        console.log("\x1b[36m--- Run oly server side ---");
 
-        if (userToken.id) {
-            userRes = await userService.getUserById(userToken.id)
-            console.log("\x1b[36m--- DATA ---", userRes);
+        const req = appContext.ctx.req
+        if (req && req.headers.cookie) {
+            // CHỈ PHÍA SERVER MỚI CÓ : req.headers.cookie
+            const token = cookie.parse(req.headers.cookie as string).token;
+            const userToken = parseJwt(token);
+
+            if (userToken.id) {
+                userRes = await userService.getUserById(userToken.id)
+                // console.log("\x1b[36m--- DATA ---", userRes);
+            }
         }
     }
+
 
     return {
         pageProps: {
