@@ -4,6 +4,7 @@ import api from '@/services/api'
 import fetch from 'isomorphic-fetch'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
+import { useGlobalState } from '@/state'
 
 type FormLogin = {
     email: string,
@@ -16,8 +17,13 @@ const initFormLogin: FormLogin = {
 }
 
 const Login = (props: any) => {
-    const [formData, setFormData] = useState(initFormLogin);
     const router = useRouter()
+    const [formData, setFormData] = useState(initFormLogin);
+    const [userInfo] = useGlobalState("currentUser")
+
+    useEffect(() => {
+        console.log("userInfo Login page : ", userInfo);
+    }, [userInfo])
 
     console.log("\x1b[36m--- Props Login COmponent ---", props);
 

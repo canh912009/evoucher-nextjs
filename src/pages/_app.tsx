@@ -19,10 +19,12 @@ es6Promise.polyfill()
 
 export default function MyApp({ Component, pageProps, router }: AppProps) {
     const pathName = router.pathname;
-    console.log("\x1b[36m--- MyApp ---", pageProps.userInfo);
+    const [currentUser, setCurrentUser] = useGlobalState("currentUser")
 
-    useEffect(() => {
-        console.log("\x1b[36m--- userInfo ---", pageProps.userInfo);
+    useMemo(() => {
+        console.log("chay 1 lan duy nhat Server side");
+        // chay 1 lan duy nhat khoi tao GlobalState
+        setCurrentUser(pageProps.userInfo)
     }, [])
 
     const hideFooter: boolean = useMemo(() => {
