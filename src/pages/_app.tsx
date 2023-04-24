@@ -22,7 +22,7 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
     const [currentUser, setCurrentUser] = useGlobalState("currentUser")
 
     useMemo(() => {
-        console.log("chay 1 lan duy nhat Server side");
+        console.log("chay 1 lan duy nhat Server side", pageProps.userInfo);
         // chay 1 lan duy nhat khoi tao GlobalState
         setCurrentUser(pageProps.userInfo)
     }, [])
