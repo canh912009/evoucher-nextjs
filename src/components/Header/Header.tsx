@@ -1,14 +1,17 @@
 import React from 'react'
-import style from '@/styles/Header.module.scss'
+import styles from '@/styles/Header.module.scss'
 import Link from 'next/link'
+import { useGlobalState } from '@/state'
 
 const Header = () => {
+    const [userInfo] = useGlobalState("currentUser")
+
     return (
         <header>
             <div className="ass1-header">
                 <div className="container">
                     <a href="index.html" className="ass1-logo">
-                        ZendVn Meme
+                        Canh Meme
                     </a>
                     <nav>
                         <ul className="ass1-header__menu">
@@ -97,18 +100,21 @@ const Header = () => {
                     <a href="#" className="ass1-header__btn-upload ass1-btn">
                         <i className="icon-Upvote" /> Upload
                     </a>
-                    {/* <div className="wrapper-user">
-                        <a className="user-header">
-                            <span className="avatar">
-                                <img src={userInfo.profilepicture || "/images/avatar-02.png"} alt="avatar" />
-                            </span>
-                            <span className="email">{userInfo.email}</span>
-                        </a>
-                        <div onClick={handleLogout} className="logout">Logout</div>
-                    </div> */}
-                    <Link href="/login" className="ass1-header__btn-upload ass1-btn">
-                        Login
-                    </Link>
+                    {
+                        userInfo
+                            ? <div className="wrapper-user">
+                                <a className="user-header">
+                                    <span className="avatar">
+                                        <img src={userInfo.profilepicture || "/images/avatar-02.png"} alt="avatar" />
+                                    </span>
+                                    <span className="email">{userInfo.email}</span>
+                                </a>
+                                <div /* onClick={handleLogout} */ className="logout">Logout</div>
+                            </div>
+                            : <Link href="/login" className="ass1-header__btn-upload ass1-btn">
+                                Login
+                            </Link>
+                    }
                 </div>
             </div>
         </header>
