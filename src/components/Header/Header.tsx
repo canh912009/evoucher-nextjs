@@ -102,14 +102,14 @@ const Header = () => {
                     </a>
                     {
                         userInfo
-                            ? <div className="wrapper-user">
-                                <a className="user-header">
-                                    <span className="avatar">
+                            ? <div className={styles.wrapper_user}>
+                                <a className={styles.user_header}>
+                                    <span className={styles.avatar}>
                                         <img src={userInfo.profilepicture || "/images/avatar-02.png"} alt="avatar" />
                                     </span>
                                     <span className="email">{userInfo.email}</span>
                                 </a>
-                                <div /* onClick={handleLogout} */ className="logout">Logout</div>
+                                <div /* onClick={handleLogout} */ className={styles.logout}>Logout</div>
                             </div>
                             : <Link href="/login" className="ass1-header__btn-upload ass1-btn">
                                 Login
