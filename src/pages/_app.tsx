@@ -1,8 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@/styles/style.css'  //load bootstrap trước r css sau 
 import es6Promise from 'es6-promise'
-import fetch from 'isomorphic-fetch'
-import cookie from 'cookie'
 
 import type { AppContext, AppProps } from 'next/app'
 import Head from 'next/head'
@@ -10,8 +8,8 @@ import App from 'next/app'
 
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
-import { useEffect, useMemo } from 'react'
-import { parseJwt } from '@/helpers'
+import { useMemo } from 'react'
+import { getTokenSSR_CSR } from '@/helpers'
 import { useGlobalState } from '@/state'
 import userService from '@/services/userService'
 
@@ -19,11 +17,12 @@ es6Promise.polyfill()
 
 export default function MyApp({ Component, pageProps, router }: AppProps) {
     const pathName = router.pathname;
+    const [token, setToken] = useGlobalState("token")
     const [currentUser, setCurrentUser] = useGlobalState("currentUser")
 
     useMemo(() => {
-        console.log("chay 1 lan duy nhat Server side", pageProps.userInfo);
-        // chay 1 lan duy nhat khoi tao GlobalState
+        console.log("chay 1 lan duy nhat Server side", pageProps.token);
+        setToken(pageProps.token)
         setCurrentUser(pageProps.userInfo)
     }, [])
 
@@ -85,28 +84,20 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
 MyApp.getInitialProps = async (appContext: AppContext) => {
     const appProps = await App.getInitialProps(appContext);
     let userRes = null
-    console.log("\x1b[36m--- Run both server + client side ---", appContext);
+    let [token, userToken] = getTokenSSR_CSR(appContext.ctx)
 
-    if (typeof window === "undefined") { //server side SSR, run only once
-        console.log("\x1b[36m--- Run oly server side ---");
-
-        const req = appContext.ctx.req
-        if (req && req.headers.cookie) {
-            // CHỈ PHÍA SERVER MỚI CÓ : req.headers.cookie
-            const token = cookie.parse(req.headers.cookie as string).token;
-            const userToken = parseJwt(token);
-
-            if (userToken.id) {
-                userRes = await userService.getUserById(userToken.id)
-                // console.log("\x1b[36m--- DATA ---", userRes);
-            }
-        }
+    if (typeof window === "undefined" && userToken) {
+        if (userToken.id && userToken.email)
+            userRes = await userService.getUserById(userToken.id)
     }
 
+    // console.log("\x1b[36m--- token _apps ---", token);
+    // console.log("\x1b[36m--- user token _apps ---", userToken);
 
     return {
         pageProps: {
             ...appProps.pageProps,
+            token,
             userInfo: userRes && userRes.user
         }
     }
