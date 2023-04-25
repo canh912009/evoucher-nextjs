@@ -2,7 +2,7 @@ import { type } from 'os'
 import React, { FormEvent, useEffect, useState } from 'react'
 import api from '@/services/api'
 import fetch from 'isomorphic-fetch'
-import Cookies from 'js-cookie'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useGlobalState } from '@/state'
 import { useNotAuthen } from '@/helpers/useAuthen'
@@ -136,7 +136,7 @@ const Login = (props: any) => {
                             // name='password'
                             type="password" className="form-control" placeholder="Mật khẩu" required />
                         <div className="ass1-login__send">
-                            <a href="dang-ky.html">Đăng ký một tài khoản</a>
+                            <Link href="/register">Đăng ký một tài khoản</Link>
                             <button type="submit" className="ass1-btn">Đăng nhập</button>
                         </div>
                     </form>
