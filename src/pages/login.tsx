@@ -77,7 +77,7 @@ const Login = (props: any) => {
                 // set set Cookie client side
                 // Cookies.set("token", data.token, {
                 //     expires: 30
-                // }) 
+                // })  
 
                 if (data.status === 200) {
                     setToken(data.token)

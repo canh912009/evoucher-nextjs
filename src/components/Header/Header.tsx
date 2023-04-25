@@ -1,10 +1,23 @@
 import React from 'react'
 import styles from '@/styles/Header.module.scss'
 import Link from 'next/link'
+import Cookies from 'js-cookie'
 import { useGlobalState } from '@/state'
+import { useRouter } from 'next/router'
 
 const Header = () => {
-    const [userInfo] = useGlobalState("currentUser")
+    const [, setToken] = useGlobalState("token")
+    const [userInfo, setUserInfo] = useGlobalState("currentUser")
+    const router = useRouter()
+
+    function handleLogout(event: any): void {
+        if (window.confirm('Confirm logout ? ')) {
+            Cookies.remove("token");
+            setToken('')
+            setUserInfo(null)
+            router.push('/login')
+        }
+    }
 
     return (
         <header>
@@ -109,7 +122,7 @@ const Header = () => {
                                     </span>
                                     <span className="email">{userInfo.email}</span>
                                 </a>
-                                <div /* onClick={handleLogout} */ className={styles.logout}>Logout</div>
+                                <div onClick={handleLogout} className={styles.logout}>Logout</div>
                             </div>
                             : <Link href="/login" className="ass1-header__btn-upload ass1-btn">
                                 Login

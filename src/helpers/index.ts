@@ -24,14 +24,13 @@ export const parseJwt = (token: string) => {
     }
 }
 
-export const getTokenSSR_CSR = (ctx: NextPageContext): [string, UserToken | null] => {
+export const getTokenSSR_CSR = (ctx?: NextPageContext): [string, UserToken | null] => {
     let token = ''
     let userToken = null
     if (typeof window === "undefined") { //server side SSR, run only once
-        const req = ctx.req
-        if (req && req.headers.cookie) {
+        if (ctx?.req?.headers?.cookie) {
             // CHỈ PHÍA SERVER MỚI CÓ : req.headers.cookie
-            token = cookie.parse(req.headers.cookie as string).token;
+            token = cookie.parse(ctx?.req?.headers?.cookie as string).token;
             userToken = parseJwt(token);
         }
     } else { //CSR

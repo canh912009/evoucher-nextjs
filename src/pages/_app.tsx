@@ -86,9 +86,8 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
     let userRes = null
     let [token, userToken] = getTokenSSR_CSR(appContext.ctx)
 
-    if (typeof window === "undefined" && userToken) {
-        if (userToken.id && userToken.email)
-            userRes = await userService.getUserById(userToken.id)
+    if (typeof window === "undefined" && userToken?.id && userToken?.email) {
+        userRes = await userService.getUserById(userToken.id)
     }
 
     // console.log("\x1b[36m--- token _apps ---", token);
