@@ -1,10 +1,35 @@
-import React from 'react'
+import { handleError } from '@/helpers'
+import { useNotAuthen } from '@/helpers/useAuthen';
+import userService from '@/services/userService';
+import { useGlobalState } from '@/state';
+import Cookies from 'js-cookie';
+import router from 'next/router';
+import React, { FormEvent, useMemo } from 'react'
 import { useState } from 'react'
 
-const initRegisterData = {
+type RegisterData = {
+    fullname: {
+        value: string;
+        error: string;
+    };
+    email: {
+        value: string;
+        error: string;
+    };
+    password: {
+        value: string;
+        error: string;
+    };
+    repassword: {
+        value: string;
+        error: string;
+    };
+};
+
+const initRegisterData: RegisterData = {
     fullname: {
         value: '',
-        error: 'Truong bat buoc',
+        error: '',
     },
     email: {
         value: '',
@@ -21,14 +46,25 @@ const initRegisterData = {
 }
 
 const Register = () => {
+    useNotAuthen()
+
     const [registerData, setRegisterData] = useState(initRegisterData)
+    const [, setToken] = useGlobalState('token')
+    const [, setCurrentUser] = useGlobalState('currentUser')
+
+    const isvalidate: boolean = useMemo(() => {
+        for (let key in registerData) {
+            if (initRegisterData.hasOwnProperty(key)) {
+                const error: string = (registerData as any)[key].error
+                if (error !== '') return false
+            }
+        }
+        return true
+    }, [registerData])
 
     const onChangeData = (key: string) => (evt: any) => {
         const value = evt.target.value
-        const error = ''
-        console.log("key.", key, "value.", value);
-
-        // handle error
+        const error = handleError(key, value, registerData.password.value)
 
         setRegisterData({
             ...registerData,
@@ -39,6 +75,34 @@ const Register = () => {
         })
     }
 
+    function handleRegister(event: FormEvent<HTMLFormElement>): void {
+        event.preventDefault();
+        if (!isvalidate) {
+            alert('Du lieu nhap vao khong hop le')
+            return
+        }
+        const email = registerData.email.value
+        const fullname = registerData.fullname.value
+        const password = registerData.password.value
+        const repassword = registerData.repassword.value
+
+        const data = { email, fullname, password, repassword }
+
+        userService.register(data).then(
+            res => {
+                if (res.status === 200) {
+                    // alert('Register sucsess')
+                    setToken(res.token)
+                    setCurrentUser(res.user)
+                    Cookies.set("token", res.token, { expires: 30 })
+                    // router.push('/') //ko can vi useNotAuthen() da lang nghe reong useEffect r
+                } else {
+                    alert(res.error)
+                }
+            }
+        )
+    }
+
     return (
         <div className="ass1-login">
             <div className="ass1-login__logo">
@@ -47,7 +111,7 @@ const Register = () => {
             <div className="ass1-login__content">
                 <p>Đăng ký một tài khoản</p>
                 <div className="ass1-login__form">
-                    <form action="#">
+                    <form action="#" onSubmit={handleRegister}>
                         <div className="form-group">
                             <input
                                 value={registerData.fullname.value}
@@ -93,3 +157,4 @@ const Register = () => {
 }
 
 export default Register
+

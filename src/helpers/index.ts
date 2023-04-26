@@ -39,3 +39,32 @@ export const getTokenSSR_CSR = (ctx?: NextPageContext): [string, UserToken | nul
 
     return [token, userToken]
 }
+
+export function validateEmail(email: string): boolean {
+    const emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+}
+
+export function handleError(key: string, value: string, password?: string): string {
+    let error = ''
+    if (value.trim().length === 0) {
+        return 'Trường bắt buộc'
+    }
+
+    switch (key) {
+        case 'email':
+            error = validateEmail(value) ? '' : 'Email không hợp lệ'
+            break;
+        case 'password':
+            error = (value.length >= 6) ? '' : 'Pass cần từ 6 kí tự'
+            break;
+        case 'repassword':
+            error = (value === password) ? '' : 'Pass nhập lại không khớp'
+            break;
+
+        default:
+            break;
+    }
+
+    return error
+}
