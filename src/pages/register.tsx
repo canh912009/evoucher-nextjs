@@ -1,8 +1,10 @@
+import Button from '@/components/Button';
 import { handleError } from '@/helpers'
 import { useNotAuthen } from '@/helpers/useAuthen';
 import userService from '@/services/userService';
 import { useGlobalState } from '@/state';
 import Cookies from 'js-cookie';
+import Link from 'next/link';
 import router from 'next/router';
 import React, { FormEvent, useMemo } from 'react'
 import { useState } from 'react'
@@ -51,6 +53,7 @@ const Register = () => {
     const [registerData, setRegisterData] = useState(initRegisterData)
     const [, setToken] = useGlobalState('token')
     const [, setCurrentUser] = useGlobalState('currentUser')
+    const [loading, setLoading] = useState(false);
 
     const isvalidate: boolean = useMemo(() => {
         for (let key in registerData) {
@@ -77,6 +80,8 @@ const Register = () => {
 
     function handleRegister(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault();
+        if (loading) return
+
         if (!isvalidate) {
             alert('Du lieu nhap vao khong hop le')
             return
@@ -88,19 +93,24 @@ const Register = () => {
 
         const data = { email, fullname, password, repassword }
 
-        userService.register(data).then(
-            res => {
-                if (res.status === 200) {
-                    // alert('Register sucsess')
-                    setToken(res.token)
-                    setCurrentUser(res.user)
-                    Cookies.set("token", res.token, { expires: 30 })
-                    // router.push('/') //ko can vi useNotAuthen() da lang nghe reong useEffect r
-                } else {
-                    alert(res.error)
+        setLoading(true)
+        userService.register(data)
+            .then(
+                res => {
+                    if (res.status === 200) {
+                        // alert('Register sucsess')
+                        setToken(res.token)
+                        setCurrentUser(res.user)
+                        Cookies.set("token", res.token, { expires: 30 })
+                        // router.push('/') //ko can vi useNotAuthen() da lang nghe reong useEffect r
+                    } else {
+                        alert(res.error)
+                    }
                 }
-            }
-        )
+            )
+            .finally(() => {
+                setLoading(false)
+            })
     }
 
     return (
@@ -145,8 +155,8 @@ const Register = () => {
                         </div>
 
                         <div className="ass1-login__send">
-                            <a href="dang-nhap.html">Đăng nhập</a>
-                            <button type="submit" className="ass1-btn">Đăng ký</button>
+                            <Link href="dang-nhap.html">Đăng nhập</Link>
+                            <Button type="submit" className="ass1-btn" isLoading={loading}>Đăng ký</Button>
                         </div>
                     </form>
                 </div>
