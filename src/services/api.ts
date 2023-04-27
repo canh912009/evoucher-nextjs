@@ -1,6 +1,12 @@
 import { BASE_URL } from '@/constants'
 import fetch from 'isomorphic-fetch'
 
+type ConfigType = {
+    data?: Record<string, any>;
+    token?: string;
+    method?: string;
+}
+
 // Trong TypeScript, Record là một kiểu dữ liệu giúp định nghĩa một đối tượng với các cặp key-value
 const api = {
     callJson: async (path: string, data?: Record<string, any>, method: string = "GET") => {
@@ -14,17 +20,23 @@ const api = {
         }
         return fetch(_url, config).then(res => res.json());
     },
-    callWithAuth: async (path: string, data: Record<string, any>, method: string = "GET") => {
-        const _url = `${BASE_URL}${path}`;
+
+
+    callApi: async (url: string, { data, method = 'GET', token }: ConfigType = {}) => {
+        const URL = `${BASE_URL}${url}`;
+
+        let headers: HeadersInit = {
+            "Content-Type": "application/json"
+        };
+        if (token) Object.assign(headers, { "Authorization": `Bearer ${token}` });
+
         const config: RequestInit = {
             method,
-            headers: {
-                "Content-Type": "application/json",
-                "Authentication": "Bearer token-cookie",
-            },
+            headers,
             body: JSON.stringify(data)
         }
-        return fetch(_url, config).then(res => res.json());
+
+        return fetch(URL, config).then(res => res.json())
     }
 }
 

@@ -1,8 +1,16 @@
+import { PostType } from '@/pages'
 import { useGlobalState } from '@/state'
 import React from 'react'
 
-const HomeSidebar = () => {
+type PropsType = {
+    userPosts: PostType[]
+}
+
+const HomeSidebar: React.FC<PropsType> = (props) => {
     const [userInfo, setUserInfo] = useGlobalState("currentUser")
+
+
+    console.log("\x1b[36m--- usePosts ---", props.userPosts);
     return (
         <aside className="ass1-aside">
             <div className="ass1-content-head__t">
