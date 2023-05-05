@@ -120,7 +120,7 @@ const Login = (props: any) => {
     return (
         <div className="ass1-login">
             <div className="ass1-login__logo">
-                <a href="index.html" className="ass1-logo">ZendVn Meme</a>
+                <Link href="/" className="ass1-logo">ZendVn Meme</Link>
             </div>
             <div className="ass1-login__content">
                 <p>Đăng nhập</p>

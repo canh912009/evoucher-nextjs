@@ -116,7 +116,7 @@ const Register = () => {
     return (
         <div className="ass1-login">
             <div className="ass1-login__logo">
-                <a href="/register" className="ass1-logo">ZendVn Meme</a>
+                <Link href="/" className="ass1-logo">ZendVn Meme</Link>
             </div>
             <div className="ass1-login__content">
                 <p>Đăng ký một tài khoản</p>
@@ -155,7 +155,7 @@ const Register = () => {
                         </div>
 
                         <div className="ass1-login__send">
-                            <Link href="dang-nhap.html">Đăng nhập</Link>
+                            <Link href="/login">Đăng nhập</Link>
                             <Button type="submit" className="ass1-btn" isLoading={loading}>Đăng ký</Button>
                         </div>
                     </form>

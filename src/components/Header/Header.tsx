@@ -23,9 +23,7 @@ const Header = () => {
         <header>
             <div className="ass1-header">
                 <div className="container">
-                    <a href="index.html" className="ass1-logo">
-                        Canh Meme
-                    </a>
+                    <Link href="/" className="ass1-logo"> Canh Meme </Link>
                     <nav>
                         <ul className="ass1-header__menu">
                             <li>
