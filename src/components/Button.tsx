@@ -5,11 +5,13 @@ type ButtonProps = {
     type?: "button" | "submit" | "reset" | undefined;
     className?: string;
     isLoading?: boolean;
+    onClick?: () => void;
 }
 
 const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
     return (
-        <button type={props.type} className={props.className}>
+        <button onClick={props.onClick} type={props.type}
+            className={props.className} disabled={props.isLoading}>
             {
                 props.isLoading &&
                 <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
