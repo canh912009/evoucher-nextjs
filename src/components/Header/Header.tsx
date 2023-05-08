@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Cookies from 'js-cookie'
 import { useGlobalState } from '@/state'
 import { useRouter } from 'next/router'
+import HeaderSearch from './HeaderSearch'
 
 const Header = () => {
     const [, setToken] = useGlobalState("token")
@@ -100,14 +101,7 @@ const Header = () => {
                             </li>
                         </ul>
                     </nav>
-                    <div className="ass1-header__search">
-                        <form action="#">
-                            <label>
-                                <input type="search" name="search-text" className="form-control" placeholder="Nhập từ khóa ..." />
-                                <i className="icon-Search" />
-                            </label>
-                        </form>
-                    </div>
+                    <HeaderSearch />
                     <Link href="/posts/create" className="ass1-header__btn-upload ass1-btn">
                         <i className="icon-Upvote" /> Upload
                     </Link>
