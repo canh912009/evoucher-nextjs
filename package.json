@@ -25,6 +25,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hooks-global-state": "^2.1.0",
+    "react-responsive-masonry": "^2.1.7",
     "sass": "^1.62.0",
     "typescript": "5.0.3"
   },
@@ -33,6 +34,7 @@
     "@types/cookie": "^0.5.1",
     "@types/isomorphic-fetch": "^0.0.36",
     "@types/js-cookie": "^3.0.3",
+    "@types/react-responsive-masonry": "^2.1.0",
     "eslint-plugin-react-hooks": "^4.6.0"
   }
 }

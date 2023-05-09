@@ -19,7 +19,12 @@ const postService = {
         return api.callApi(url, {
             token // token: token
         })
-    }
+    },
+
+    getPostsSearch: async (searchStr: string) => {
+        const url = `/post/search.php?query=${searchStr}`;
+        return api.callJson(url)
+    },
 }
 
 export default postService

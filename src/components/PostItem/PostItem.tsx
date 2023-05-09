@@ -9,13 +9,17 @@ dayjs.extend(relativeTime)
 
 type PropsType = {
     post: PostType;
+    customClass?: string
 }
 
-const PostItem: React.FC<PropsType> = ({ post }) => {
+const PostItem: React.FC<PropsType> = ({ post, customClass }) => {
     const timeFomat = dayjs(post.time_added).locale(viLocale).fromNow();
+    let classNameX: string = "ass1-section__item"
+
+    if (customClass) classNameX = classNameX + " " + customClass
 
     return (
-        <div className="ass1-section__item">
+        <div className={classNameX}>
             <div className="ass1-section">
                 <div className="ass1-section__head">
                     <Link
