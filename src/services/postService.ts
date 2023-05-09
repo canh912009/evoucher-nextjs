@@ -22,7 +22,7 @@ const postService = {
     },
 
     getPostsSearch: async (searchStr: string) => {
-        const url = `/post/search.php?query=${searchStr}`;
+        const url = `/post/search.php?query=${encodeURI(searchStr)}`;
         return api.callJson(url)
     },
 }

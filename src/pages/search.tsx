@@ -31,7 +31,13 @@ const SearchPage: NextPage<PropsType> = ({ listPosts }) => {
             <Masonry columnsCount={3} gutter='15px'
                 className="ass1-section__wrap row ass1-section__isotope-init">
                 {
-                    listPosts.map((post) => <PostItem key={post.PID} post={post} /* customClass='col-lg-3' */ />)
+                    listPosts.map((post) =>
+                        <PostItem
+                            key={post.PID}
+                            post={post}
+                            isHightlight={true}
+                            query={searchStr as string}
+                        />)
                 }
             </Masonry>
 
