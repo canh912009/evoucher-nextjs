@@ -1895,16 +1895,22 @@ select.form-control:focus {
   margin-top: 36px;
 }
 
-.ass1-login__form form input,
-.ass1-login__form form>*:not(div) {
+.ass1-login__form form input {
   background-color: #f6f9fb;
   border-radius: 6px;
 }
 
 .ass1-login__form form>input,
-.ass1-login__form form>*:not(div),
-.ass1-login__form form .ass1-input-copy {
+.ass1-login__form form .form-group {
   margin-bottom: 30px;
+  position: relative;
+}
+
+.ass1-login__form form .form-text {
+  position: absolute;
+  text-align: left;
+  padding: 0 15px;
+  width: 100%;
 }
 
 .ass1-login__send {
@@ -2621,29 +2627,18 @@ select.form-control:focus {
 .ass1-header__menu>li a {
   color: #1e1633;
   position: relative;
+  cursor: pointer !important;
 }
 
-/*.ass1-header__menu > li a:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: -25px;
-}*/
 .ass1-header__menu>li.active>a {
   color: #3482e2;
 }
 
 .ass1-header__menu>li:hover>a,
 .ass1-header__menu>li:focus>a {
-  color: #3482e2;
+  color: #3482e2 !important;
 }
 
-/*.ass1-header__menu > li:hover > .ass1-header__nav {
-  display: block !important;
-}
-*/
 .ass1-header__menu-transition {
   position: absolute;
   bottom: 100%;
@@ -2652,18 +2647,41 @@ select.form-control:focus {
 }
 
 .ass1-header__nav {
-  display: none;
+  display: block;
   position: absolute;
   width: 100%;
   padding: 24px;
   top: 100%;
   left: 0;
   right: 0;
-  background-color: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+  background-color: #fff;
   background-image: url('/images/menu-bg.jpg');
-  background-position: cover;
+  background-size: cover;
   border-top: solid 1px #e5e9ec;
   border-bottom: solid 1px #e6e9f1;
+  -moz-transition: all 0.2s cubic-bezier(0.66, 0.28, 0.85, 0.35);
+  -o-transition: all 0.2s cubic-bezier(0.66, 0.28, 0.85, 0.35);
+  -webkit-transition: all 0.2s cubic-bezier(0.66, 0.28, 0.85, 0.35);
+  transition: all 0.2s cubic-bezier(0.66, 0.28, 0.85, 0.35);
+}
+
+.ass1-header__menu>li .ass1-header__nav::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -25px;
+  height: 25px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.ass1-header__menu>li:hover .ass1-header__nav {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .ass1-header__nav>.container {
@@ -2677,11 +2695,11 @@ select.form-control:focus {
 
 .ass1-header__nav>.container ul {
   margin: 15px 0;
-  flex-direction: column;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
+  flex-wrap: wrap;
 }
 
 @media only screen and (max-width: 768px) {
@@ -2692,10 +2710,8 @@ select.form-control:focus {
 
 .ass1-header__nav>.container ul li {
   text-align: center;
-}
-
-.ass1-header__nav>.container ul li:not(:first-child) {
   margin-top: 8px;
+  width: 25%;
 }
 
 .ass1-header__nav>.container ul li a:hover {

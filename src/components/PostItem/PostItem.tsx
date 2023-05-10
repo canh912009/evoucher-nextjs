@@ -16,7 +16,7 @@ type PropsType = {
 }
 
 const PostItem: React.FC<PropsType> = ({ post, customClass, isHightlight, query }) => {
-    const timeFomat = dayjs(post.time_added).locale(viLocale).fromNow();
+    const timeFomat = dayjs(post?.time_added).locale(viLocale).fromNow();
     let classNameX: string = "ass1-section__item"
 
     if (customClass) classNameX = classNameX + " " + customClass

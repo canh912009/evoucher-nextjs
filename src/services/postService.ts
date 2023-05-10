@@ -8,6 +8,15 @@ const postService = {
         return api.callJson(url)
     },
 
+    getPostsByCategory: async ({ pagesize = 10, currPage = 1, tagIndex = '' } = {}) => {
+        if (!tagIndex) return null
+
+        const params = `pagesize=${pagesize}&currPage=${currPage}&tagIndex=${tagIndex}`
+        const url = `/post/getListByCategory.php?${params}`;
+
+        return api.callJson(url)
+    },
+
     getPostsByUserId: async (userid: string, token: string) => {
         const url = `/post/getListPostUserID.php?userid=${userid}`;
 
@@ -23,6 +32,11 @@ const postService = {
 
     getPostsSearch: async (searchStr: string) => {
         const url = `/post/search.php?query=${encodeURI(searchStr)}`;
+        return api.callJson(url)
+    },
+
+    getCategory: async () => {
+        const url = `/categories/index.php`;
         return api.callJson(url)
     },
 }

@@ -1,4 +1,3 @@
-import React from 'react';
 import { createGlobalState } from 'react-hooks-global-state';
 
 type TypeCurrentUser = {
@@ -12,13 +11,20 @@ type TypeCurrentUser = {
     permission: string;
 }
 
+type TypeCategory = {
+    id: number;
+    text: string
+}
+
 type TypeInitState = {
     token?: string;
+    categories: TypeCategory[];
     currentUser: TypeCurrentUser | null
 }
 
 const initialState: TypeInitState = {
     token: '',
+    categories: [],
     currentUser: null
 };
 

@@ -12,18 +12,21 @@ import { useMemo } from 'react'
 import { getTokenSSR_CSR } from '@/helpers'
 import { useGlobalState } from '@/state'
 import userService from '@/services/userService'
+import postService from '@/services/postService'
 
 es6Promise.polyfill()
 
 export default function MyApp({ Component, pageProps, router }: AppProps) {
     const pathName = router.pathname;
     const [token, setToken] = useGlobalState("token")
+    const [categories, setCategories] = useGlobalState("categories")
     const [currentUser, setCurrentUser] = useGlobalState("currentUser")
 
     useMemo(() => {
         // console.log("chay 1 lan duy nhat Server side", pageProps.token);
         setToken(pageProps.token)
         setCurrentUser(pageProps.userInfo)
+        setCategories(pageProps.categoriesInfo)
     }, [])
 
     const hideFooter: boolean = useMemo(() => {
@@ -83,21 +86,22 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
 // appContext khác với các Pages context
 MyApp.getInitialProps = async (appContext: AppContext) => {
     const appProps = await App.getInitialProps(appContext);
-    let userRes = null
+    let userPromise = null, categoriesPromise = null
     let [token, userToken] = getTokenSSR_CSR(appContext.ctx)
 
-    if (typeof window === "undefined" && userToken?.id && userToken?.email) {
-        userRes = await userService.getUserById(userToken.id)
+    if (typeof window === "undefined") {
+        if (userToken?.id && userToken?.email) userPromise = userService.getUserById(userToken.id)
+        categoriesPromise = postService.getCategory()
     }
 
-    // console.log("\x1b[36m--- token _apps ---", token);
-    // console.log("\x1b[36m--- user token _apps ---", userToken);
+    const [userRes, categoriesRes] = await Promise.all([userPromise, categoriesPromise])
 
     return {
         pageProps: {
             ...appProps.pageProps,
             token,
-            userInfo: userRes && userRes.user
+            userInfo: userRes?.user || null,
+            categoriesInfo: categoriesRes?.categories || []
         }
     }
 }
