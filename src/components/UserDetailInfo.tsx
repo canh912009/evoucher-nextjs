@@ -1,6 +1,11 @@
+import { TypeUser } from '@/state';
 import React from 'react'
 
-const UserDetailInfo = () => {
+type PropsType = {
+    userDetailInfo: TypeUser | null;
+}
+
+const UserDetailInfo: React.FC<PropsType> = ({ userDetailInfo }) => {
     return (
         <div className="ass1-head-user">
             <div className="ass1-head-user__content">

@@ -1,6 +1,11 @@
+import { PostType } from '@/pages';
 import React from 'react'
 
-const UserDetailPost = () => {
+type PropsType = {
+    userDetailPost: PostType[];
+}
+
+const UserDetailPost: React.FC<PropsType> = ({ userDetailPost }) => {
     return (
         <div className="ass1-section__wrap row ass1-section__isotope-init">
             {/*section*/}
