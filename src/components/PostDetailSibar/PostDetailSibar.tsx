@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 const PostDetailSibar = () => {
@@ -53,9 +54,9 @@ const PostDetailSibar = () => {
                 <p>Share Link</p>
             </div>
             <div className="ass1-aside__social">
-                <a href="/" className="ass1-btn-social__facebook ass1-btn-social"><i className="fa fa-facebook" aria-hidden="true" /></a>
-                <a href="/" className="ass1-btn-social__twitter ass1-btn-social"><i className="fa fa-twitter" aria-hidden="true" /></a>
-                <a href="/" className="ass1-btn-social__google ass1-btn-social"><i className="fa fa-google-plus" aria-hidden="true" /></a>
+                <Link href="/" className="ass1-btn-social__facebook ass1-btn-social"><i className="fa fa-facebook" aria-hidden="true" /></Link>
+                <Link href="/" className="ass1-btn-social__twitter ass1-btn-social"><i className="fa fa-twitter" aria-hidden="true" /></Link>
+                <Link href="/" className="ass1-btn-social__google ass1-btn-social"><i className="fa fa-google-plus" aria-hidden="true" /></Link>
             </div>
         </aside>
 

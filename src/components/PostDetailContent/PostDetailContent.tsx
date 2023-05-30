@@ -7,11 +7,11 @@ const PostDetailContent = () => {
     return (
         <div className="ass1-section__list">
 
-            <PostItem />
+            {/* <PostItem />
 
             <PostCommentForm />
 
-            <PostCommentList />
+            <PostCommentList /> */}
 
         </div>
     )
